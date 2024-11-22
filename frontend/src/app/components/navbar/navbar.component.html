@@ -1,0 +1,512 @@
+<nav class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="../assets/img/logo.ico" class="h-12" alt="Flowbite Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white bebas-neue-regular">
+                Arriba el Campo
+            </span>
+        </a>
+        <button (click)="toggleMenu()" type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-dropdown" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M1 1h15M1 7h15M1 13h15" />
+            </svg>
+        </button>
+        <div [ngClass]="{'hidden': !isMenuOpen}" class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
+            <ul
+                class="flex flex-col items-center font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <li>
+                    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        aria-current="page">
+                        Inicio
+                    </a>
+                </li>
+                <li *ngIf="usuario?.rol === 'comprador' || !isLoggedIn">
+                    <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+                        class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+                        Categorías
+                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+                    <!-- Dropdown menu -->
+                    <div id="dropdownNavbar"
+                        class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                            <li>
+                                <a (click)="navigateToCategory('Frutas')"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Frutas</a>
+                            </li>
+                            <li>
+                                <a (click)="navigateToCategory('Verduras')"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Verduras</a>
+                            </li>
+                            <li>
+                                <a (click)="navigateToCategory('Tubérculos y Raíces')"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tubérculos
+                                    y Raíces</a>
+                            </li>
+                            <li>
+                                <a (click)="navigateToCategory('Granos y Cereales')"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Granos
+                                    y Cereales</a>
+                            </li>
+                            <li>
+                                <a (click)="navigateToCategory('Legumbres')"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Legumbres</a>
+                            </li>
+                            <li>
+                                <a (click)="navigateToCategory('Hierbas y Especias')"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Hierbas
+                                    y Especias</a>
+                            </li>
+                            <li>
+                                <a (click)="navigateToCategory('Frutas de Temporada')"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Frutas
+                                    de Temporada</a>
+                            </li>
+                            <li>
+                                <a (click)="navigateToCategory('Hortalizas')"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Hortalizas</a>
+                            </li>
+                            <li>
+                                <a (click)="navigateToCategory('Plátano y Banano')"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Plátano
+                                    y Banano</a>
+                            </li>
+                            <li>
+                                <a (click)="navigateToCategory('Frutos Exóticos')"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Frutos
+                                    exóticos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li *ngIf="usuario?.rol === 'comprador' || !isLoggedIn">
+                    <a routerLink="/mercado" routerLinkActive="active"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                        Mercado
+                    </a>
+                </li>
+                <li *ngIf="usuario?.rol === 'vendedor'">
+                    <a routerLink="/publicar" routerLinkActive="active"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Publicar</a>
+                </li>
+                <li *ngIf="usuario?.rol === 'empresa'">
+                    <a routerLink="/empresa-transportadora" routerLinkActive="active"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pedidos</a>
+                </li>
+                <li *ngIf="usuario?.rol === 'transportador'">
+                    <a [routerLink]="'/transportador/'+usuario._id" routerLinkActive="active"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Control
+                        de pedidos</a>
+                </li>
+                <li *ngIf="usuario?.rol === 'vendedor'">
+                    <a routerLink="/mis-publicaciones" routerLinkActive="active"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Ver
+                        publicaciones</a>
+                </li>
+                <li *ngIf="usuario?.rol === 'vendedor'">
+                    <a routerLink="/mis-estadisticas" routerLinkActive="active"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"><i
+                            class="fa-solid fa-chart-line"></i> Ver
+                        estadísticas</a>
+                </li>
+                <li *ngIf="usuario?.rol === 'auditor'">
+                    <a routerLink="/auditar" routerLinkActive="active"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"><i
+                            class="fa-solid fa-file-circle-check"></i> Auditar campos</a>
+                </li>
+                <li *ngIf="usuario?.rol === 'calidad'">
+                    <a routerLink="/calidad" routerLinkActive="active"
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Gestionar
+                        productos</a>
+                </li>
+                <ng-container *ngIf="!isLoggedIn">
+                    <li class="iniciar">
+                        <button type="button" (click)="toggleAuthModal(false)"
+                            class="text-white bg-gray-700 hover:bg-gray-800 mr-2 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                            Iniciar Sesión
+                        </button>
+                    </li>
+                    <li class="empezar">
+                        <button type="button" (click)="toggleAuthModal(true)"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Empezar
+                        </button>
+                    </li>
+                </ng-container>
+                <ng-container *ngIf="isLoggedIn">
+                    <li class="relative">
+                        <button id="dropdownAvatarNameButton" (click)="toggleDropdown()"
+                            class="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
+                            type="button">
+                            <span class="sr-only">Open user menu</span>
+                            <img class="w-8 h-8 me-2 rounded-full"
+                                [src]="usuario?.fotoPerfil ? usuario.fotoPerfil : '/assets/img/user.png'"
+                                alt="user photo">
+                            {{ usuario?.nombres }} {{ usuario?.apellidos }}
+                            <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+
+                        <!-- Dropdown menú -->
+                        <div *ngIf="isDropdownOpen" id="dropdownAvatarName"
+                            class="absolute right-0 mt-2 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                            <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                                <div class="font-medium" *ngIf="usuario?.rol === 'comprador'">Comprador</div>
+                                <div class="font-medium" *ngIf="usuario?.rol === 'vendedor'">Vendedor</div>
+                                <div class="truncate">{{ usuario?.correo }}</div>
+                            </div>
+                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+                                <li><a routerLink="/mis-pedidos" *ngIf="usuario?.rol === 'comprador'"
+                                        class="block px-4 py-2">Mis Pedidos</a></li>
+                                <li><a routerLink="/pedidos" *ngIf="usuario?.rol === 'vendedor'"
+                                        class="block px-4 py-2">Pedidos</a></li>
+                                <li><a routerLink="/perfil" class="block px-4 py-2">Perfil</a></li>
+                            </ul>
+                            <div class="py-2">
+                                <a href="#" (click)="cerrarSesion()" class="block px-4 py-2">Cerrar sesión</a>
+                            </div>
+                        </div>
+                    </li>
+                </ng-container>
+                <li class="carrito" *ngIf="usuario?.rol === 'comprador' || !isLoggedIn">
+                    <button type="button" (click)="toggleCart()"
+                        class="relative inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <div
+                            class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+                            {{productosCarrito.length}}</div>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div *ngIf="isAuthModalOpen" class="modal-bg">
+    <div class="modal-content">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    {{ isRegistering ? 'Registrar cuenta' : isRecoveringPassword ? 'Recuperar Contraseña' : 'Iniciar
+                    Sesión' }}
+                </h3>
+                <button type="button"
+                    class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    (click)="toggleAuthModal()">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <div class="p-4 md:p-5">
+                <form *ngIf="!isRegistering && !isRecoveringPassword" (ngSubmit)="onIniciarSesion()" class="space-y-4">
+                    <!-- Formulario de inicio de sesión -->
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo
+                            electrónico:</label>
+                        <input type="email" name="email" id="email" [(ngModel)]="login.correo" required
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="nombre@ejemplo.com" />
+                    </div>
+                    <div>
+                        <label for="password"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña:</label>
+                        <input type="password" name="password" id="password" [(ngModel)]="login.contrasena" required
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="••••••••" />
+                    </div>
+                    <div class="flex justify-between">
+                        <a (click)="toggleRecoveryPassword()"
+                            class="text-sm text-blue-700 hover:underline dark:text-blue-500 cursor-pointer">Olvidaste tu
+                            contraseña?</a>
+                    </div>
+                    <div *ngIf="errorMessage" class="errorMessage">
+                        {{ errorMessage }}
+                    </div>
+                    <button type="submit"
+                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Inicie
+                        sesión en su cuenta</button>
+                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                        ¿No tienes cuenta? <a (click)="toggleRegistering()"
+                            class="text-blue-700 hover:underline dark:text-blue-500 cursor-pointer">Crear cuenta</a>
+                    </div>
+                </form>
+
+                <form *ngIf="isRegistering" (ngSubmit)="onRegistrarse()" class="space-y-4">
+                    <!-- Formulario de registro -->
+                    <div>
+                        <label for="nombres"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombres:</label>
+                        <input type="text" name="nombres" id="nombres" [(ngModel)]="register.nombres"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            required />
+                    </div>
+                    <div>
+                        <label for="apellidos"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos:</label>
+                        <input type="text" name="apellidos" id="apellidos" [(ngModel)]="register.apellidos"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            required />
+                    </div>
+                    <div>
+                        <label for="correo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo
+                            electrónico:</label>
+                        <input type="email" name="correo" id="correo" [(ngModel)]="register.correo"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            required />
+                    </div>
+                    <div>
+                        <label for="password"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña:</label>
+                        <input type="password" name="password" id="password" [(ngModel)]="register.contrasena" (input)="verificarContrasena()"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            required />
+                        <p *ngIf="passwordError" class="text-sm text-red-600 mt-1">{{ passwordError }}</p>
+                    </div>
+                    <div class="flex items-center">
+                        <button id="dropdown-phone-button" data-dropdown-toggle="dropdown-phone"
+                            class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg cursor-default"
+                            type="button">
+                            <svg class="w-4 h-4 me-2" fill="none" viewBox="0 0 20 15">
+                                <rect width="20" height="15" y=".5" fill="#fff" rx="2" />
+                                <mask id="a" style="mask-type:luminance" width="20" height="15" x="0" y="0"
+                                    maskUnits="userSpaceOnUse">
+                                    <rect width="20" height="15" y=".5" fill="#fff" rx="2" />
+                                </mask>
+                                <g mask="url(#a)">
+                                    <path fill="#FFCD00" fill-rule="evenodd" d="M0 5.167h19.6V.5H0v4.667z"
+                                        clip-rule="evenodd" />
+                                    <g filter="url(#filter0_d_374_135180)">
+                                        <path fill="#003087" fill-rule="evenodd" d="M0 9.833h19.6V5.167H0v4.666z"
+                                            clip-rule="evenodd" />
+                                    </g>
+                                    <g filter="url(#filter1_d_374_135180)">
+                                        <path fill="#C8102E" fill-rule="evenodd" d="M0 14.5h19.6V9.833H0V14.5z"
+                                            clip-rule="evenodd" />
+                                    </g>
+                                </g>
+                                <defs>
+                                    <filter id="filter0_d_374_135180" width="19.6" height="4.667" x="0" y="5.167"
+                                        color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+                                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                        <feColorMatrix in="SourceAlpha" result="hardAlpha"
+                                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                                        <feOffset />
+                                        <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0" />
+                                        <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_374_135180" />
+                                        <feBlend in="SourceGraphic" in2="effect1_dropShadow_374_135180"
+                                            result="shape" />
+                                    </filter>
+                                    <filter id="filter1_d_374_135180" width="19.6" height="4.667" x="0" y="9.833"
+                                        color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+                                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                        <feColorMatrix in="SourceAlpha" result="hardAlpha"
+                                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                                        <feOffset />
+                                        <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0" />
+                                        <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_374_135180" />
+                                        <feBlend in="SourceGraphic" in2="effect1_dropShadow_374_135180"
+                                            result="shape" />
+                                    </filter>
+                                </defs>
+                            </svg>
+                            +57
+                        </button>
+                        <label for="phone-input"
+                            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Celular:</label>
+                        <div class="relative w-full">
+                            <input type="text" id="phone-input" name="celular" [(ngModel)]="register.celular"
+                                maxlength="10"
+                                class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-0 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                                required (keypress)="validateKeypress($event)" />
+                        </div>
+                    </div>
+                    <div>
+                        <label for="rol" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">¿Qué
+                            quieres ser?</label>
+                        <select name="rol" id="rol" [(ngModel)]="register.rol"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
+                            <option value="comprador">Comprador</option>
+                            <option value="vendedor">Vendedor</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-center py-1">
+                        <re-captcha *ngIf="siteKey" (resolved)="resolved($event!)" [siteKey]="siteKey!"></re-captcha>
+                    </div>
+                    <div class="flex items-start">
+                        <input type="checkbox" id="acceptTerms" [(ngModel)]="acceptTerms" name="acceptTerms" required
+                            class="w-4 h-4 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="acceptTerms" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Acepto los <a href="/terminos-condiciones" target="_blank"
+                                class="text-blue-600 hover:underline dark:text-blue-500">Términos y Condiciones</a>
+                        </label>
+                    </div>
+                    <div class="flex items-start">
+                        <input type="checkbox" id="acceptContracts" [(ngModel)]="acceptContracts" name="acceptContracts"
+                            required
+                            class="w-4 h-4 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
+                        <label for="acceptContracts" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Acepto los <a *ngIf="register.rol === 'comprador'" routerLink="/contrato-comprador"
+                                target="_blank" class="text-blue-600 hover:underline dark:text-blue-500">Términos de
+                                Comprador</a>
+                            <a *ngIf="register.rol === 'vendedor'" routerLink="/contrato-vendedor" target="_blank"
+                                class="text-blue-600 hover:underline dark:text-blue-500">Términos de Vendedor</a>.
+                        </label>
+                    </div>
+                    <div *ngIf="!acceptContracts && showContractsError" class="text-red-600 text-sm mt-1">
+                        Debes aceptar el contrato para registrarte.
+                    </div>
+                    <div *ngIf="!acceptTerms && showTermsError" class="text-red-600 text-sm mt-1">
+                        Debes aceptar los Términos y Condiciones para registrarte.
+                    </div>
+                    <div *ngIf="errorMessage" class="errorMessage">
+                        {{ errorMessage }}
+                    </div>
+                    <button type="submit"
+                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Crear
+                        cuenta</button>
+                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                        ¿Ya tienes cuenta? <a (click)="toggleRegistering()"
+                            class="text-blue-700 hover:underline dark:text-blue-500 cursor-pointer">Iniciar sesión</a>
+                    </div>
+                </form>
+                <!-- Formulario de recuperación de contraseña -->
+                <form *ngIf="isRecoveringPassword" (ngSubmit)="onRecoverPassword()" class="space-y-4">
+                    <div>
+                        <label for="recoveryEmail" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Correo electrónico:
+                        </label>
+                        <input type="email" name="recoveryEmail" id="recoveryEmail" [(ngModel)]="recoveryEmail" required
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                            placeholder="nombre@ejemplo.com" />
+                    </div>
+                    <button type="submit"
+                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Enviar enlace de recuperación
+                    </button>
+                    <div *ngIf="recoveryMessage" class="text-sm text-green-600 mt-2">{{ recoveryMessage }}</div>
+                    <div *ngIf="recoveryErrorMessage" class="text-sm text-red-600 mt-2">{{ recoveryErrorMessage }}</div>
+                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                        ¿Recordaste tu contraseña? <a (click)="toggleRecoveryPassword()"
+                            class="text-blue-700 hover:underline dark:text-blue-500 cursor-pointer">Inicia sesión</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="relative z-10" *ngIf="isCartOpen" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+    <div class="fixed inset-0 overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                <div class="pointer-events-auto w-screen max-w-md">
+                    <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+                        <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                            <div class="flex items-start justify-between">
+                                <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Carro de compras
+                                </h2>
+                                <div class="ml-3 flex h-7 items-center">
+                                    <button (click)="toggleCart()" type="button"
+                                        class="relative -m-2 p-2 text-gray-400 hover:text-gray-500">
+                                        <span class="sr-only">Close panel</span>
+                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                            stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mt-8">
+                                <div class="flow-root">
+                                    <ul role="list" class="-my-6 divide-y divide-gray-200">
+                                        <!-- Iterar sobre productos del carrito -->
+                                        <li *ngFor="let producto of productosCarrito; let i = index" class="flex py-6">
+                                            <div
+                                                class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                <img [src]="getFotoUrl(producto.fotos[0])" alt="{{ producto.titulo }}"
+                                                    class="h-full w-full object-cover object-center">
+                                            </div>
+
+                                            <div class="ml-4 flex flex-1 flex-col">
+                                                <div>
+                                                    <div
+                                                        class="flex justify-between text-base font-medium text-gray-900">
+                                                        <h3>{{ producto.titulo }}</h3>
+                                                        <p class="ml-4">{{ transform(producto.precio) }}</p>
+                                                    </div>
+                                                    <p class="mt-1 text-sm text-gray-500">{{ producto.descripcion |
+                                                        slice:0:100 }}{{ producto.descripcion.length > 100 ? '...' : ''
+                                                        }}</p>
+                                                </div>
+
+                                                <!-- Incremento/decremento de cantidad -->
+                                                <div class="flex items-center mt-4">
+                                                    <button (click)="decrementQuantity(i)"
+                                                        class="bg-gray-100 border border-gray-300 p-2 rounded-l-lg">-</button>
+                                                    <input type="text" class="w-12 text-center border border-gray-300"
+                                                        [(ngModel)]="producto.cantidad" [value]="producto.cantidad">
+                                                    <button (click)="incrementQuantity(i)"
+                                                        class="bg-gray-100 border border-gray-300 p-2 rounded-r-lg">+</button>
+                                                    <span class="pl-2">kg</span>
+                                                </div>
+
+                                                <div class="flex flex-1 items-end justify-between text-sm mt-2">
+                                                    <button (click)="removeFromCart(i)" type="button"
+                                                        class="font-medium text-indigo-600 hover:text-indigo-500">Eliminar</button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                            <div class="flex justify-between text-base font-medium text-gray-900">
+                                <p>Total</p>
+                                <p>{{ getCartTotal() }}</p>
+                            </div>
+                            <p class="mt-0.5 text-sm text-gray-500">Los gastos de envío e impuestos se calculan al
+                                finalizar la compra.</p>
+                            <div class="mt-6">
+                                <button type="button" (click)="pagar()"
+                                    class="w-full flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Pagar</button>
+                            </div>
+                            <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+                                <p>
+                                    o
+                                    <button type="button" routerLink="/mercado"
+                                        class="font-medium text-indigo-600 hover:text-indigo-500">
+                                        Continuar Comprando
+                                        <span aria-hidden="true"> &rarr;</span>
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

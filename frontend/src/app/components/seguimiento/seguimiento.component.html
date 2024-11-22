@@ -1,0 +1,157 @@
+<app-navbar></app-navbar>
+
+<div class="mt-20 w-full flex flex-col justify-center items-center" *ngIf="pedido">
+    <!-- Título principal del seguimiento -->
+    <h2 class="text-2xl font-bold mb-4">Seguimiento del Pedido: {{ pedido.pedidoId }}</h2>
+
+    <!-- Estado general del pedido con el stepper -->
+    <section class="w-full max-w-2xl bg-white p-6 shadow-md rounded-lg mb-8">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Estado General del Pedido</h3>
+        <ol class="relative text-gray-500 border-s border-gray-200 dark:border-gray-700 dark:text-gray-400">
+
+            <!-- Estado: Creado -->
+            <li class="mb-10 ms-6">
+                <span
+                    class="absolute flex items-center justify-center w-8 h-8 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900"
+                    [ngClass]="{
+                'bg-green-200 dark:bg-green-900': pedido.estadoGeneral !== 'Creado',
+                'bg-blue-200 dark:bg-blue-900': pedido.estadoGeneral === 'Creado'
+              }">
+                    <i class="fa-solid fa-circle-plus" [ngClass]="{
+                   'text-green-500 dark:text-green-400': pedido.estadoGeneral !== 'Creado',
+                   'text-blue-500 dark:text-blue-400': pedido.estadoGeneral === 'Creado'
+                 }"></i>
+                </span>
+                <h4 class="font-medium leading-tight">Creado</h4>
+                <p class="text-sm">El pedido fue creado correctamente.</p>
+            </li>
+
+            <!-- Estado: Productos camino a la empresa transportadora -->
+            <li class="mb-10 ms-6">
+                <span
+                    class="absolute flex items-center justify-center w-8 h-8 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900"
+                    [ngClass]="{
+                'bg-green-200 dark:bg-green-900': pedido.estadoGeneral !== 'Creado' && pedido.estadoGeneral !== 'Productos camino a la empresa transportadora',
+                'bg-blue-200 dark:bg-blue-900': pedido.estadoGeneral === 'Productos camino a la empresa transportadora'
+              }">
+                    <i class="fa-solid fa-truck-moving" [ngClass]="{
+                   'text-green-500 dark:text-green-400': pedido.estadoGeneral !== 'Creado' && pedido.estadoGeneral !== 'Productos camino a la empresa transportadora',
+                   'text-blue-500 dark:text-blue-400': pedido.estadoGeneral === 'Productos camino a la empresa transportadora'
+                 }"></i>
+                </span>
+                <h4 class="font-medium leading-tight">Productos camino a la empresa transportadora</h4>
+                <p class="text-sm">Los productos están camino a la empresa transportadora.</p>
+            </li>
+
+            <!-- Estado: Productos en la empresa transportadora -->
+            <li class="mb-10 ms-6">
+                <span
+                    class="absolute flex items-center justify-center w-8 h-8 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900"
+                    [ngClass]="{
+            'bg-green-200 dark:bg-green-900': ['Comprobando productos', 'Camino a tu dirección', 'Entregado'].includes(pedido.estadoGeneral),
+            'bg-blue-200 dark:bg-blue-900': pedido.estadoGeneral === 'Productos en la empresa transportadora'
+        }">
+                    <i class="fa-solid fa-truck-ramp-box" [ngClass]="{
+               'text-green-500 dark:text-green-400': ['Comprobando productos', 'Camino a tu dirección', 'Entregado'].includes(pedido.estadoGeneral),
+               'text-blue-500 dark:text-blue-400': pedido.estadoGeneral === 'Productos en la empresa transportadora'
+           }"></i>
+                </span>
+                <h4 class="font-medium leading-tight">Productos en la empresa transportadora</h4>
+                <p class="text-sm">El pedido está en la empresa transportadora.</p>
+            </li>
+
+
+
+            <!-- Estado: Comprobando productos -->
+            <li class="mb-10 ms-6">
+                <span
+                    class="absolute flex items-center justify-center w-8 h-8 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900"
+                    [ngClass]="{
+                'bg-green-200 dark:bg-green-900': pedido.estadoGeneral === 'Camino a tu dirección' || pedido.estadoGeneral === 'Entregado',
+                'bg-blue-200 dark:bg-blue-900': pedido.estadoGeneral === 'Comprobando productos'
+              }">
+                    <i class="fa-solid fa-magnifying-glass" [ngClass]="{
+                   'text-green-500 dark:text-green-400': pedido.estadoGeneral === 'Camino a tu dirección' || pedido.estadoGeneral === 'Entregado',
+                   'text-blue-500 dark:text-blue-400': pedido.estadoGeneral === 'Comprobando productos'
+                 }"></i>
+                </span>
+                <h4 class="font-medium leading-tight">Comprobando productos</h4>
+                <p class="text-sm">Los productos están siendo comprobados.</p>
+            </li>
+
+            <!-- Estado: Camino a tu dirección -->
+            <li class="mb-10 ms-6">
+                <span
+                    class="absolute flex items-center justify-center w-8 h-8 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900"
+                    [ngClass]="{
+                'bg-green-200 dark:bg-green-900': pedido.estadoGeneral === 'Entregado',
+                'bg-blue-200 dark:bg-blue-900': pedido.estadoGeneral === 'Camino a tu dirección'
+              }">
+                    <i class="fa-solid fa-truck-fast" [ngClass]="{
+                   'text-green-500 dark:text-green-400': pedido.estadoGeneral === 'Entregado',
+                   'text-blue-500 dark:text-blue-400': pedido.estadoGeneral === 'Camino a tu dirección'
+                 }"></i>
+                </span>
+                <h4 class="font-medium leading-tight">Camino a tu dirección</h4>
+                <p class="text-sm">El pedido está camino a tu dirección.</p>
+            </li>
+
+            <!-- Estado: Entregado -->
+            <li class="mb-10 ms-6">
+                <span
+                    class="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900"
+                    [ngClass]="{
+                'bg-green-200 dark:bg-green-900': pedido.estadoGeneral === 'Entregado'
+              }">
+                    <i class="fa-solid fa-circle-check" [ngClass]="{
+                   'text-green-500 dark:text-green-400': pedido.estadoGeneral === 'Entregado'
+                 }"></i>
+                </span>
+                <h4 class="font-medium leading-tight">Entregado</h4>
+                <p class="text-sm">El pedido fue entregado.</p>
+            </li>
+        </ol>
+    </section>
+
+
+    <!-- Sección de productos del pedido -->
+    <section class="w-full max-w-2xl bg-white p-6 shadow-md rounded-lg mb-8">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Productos en el Pedido</h3>
+        <ol class="relative text-gray-500 border-s border-gray-200 dark:border-gray-700 dark:text-gray-400">
+            <li *ngFor="let producto of pedido.productos" class="mb-10 ms-6">
+                <span
+                    class="absolute flex items-center justify-center w-8 h-8 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900"
+                    [ngClass]="{
+                        'bg-red-200 dark:bg-red-900': producto.estado === 'Creado',
+                        'bg-orange-200 dark:bg-orange-900': producto.estado === 'Camino a la empresa transportadora',
+                        'bg-green-200 dark:bg-green-900': producto.estado === 'Entregado a empresa transportadora'
+                    }">
+                    <i class="fa-solid" [ngClass]="{
+                        'fa-plus text-red-500 dark:text-red-400': producto.estado === 'Creado',
+                        'fa-truck-fast text-orange-500 dark:text-orange-400': producto.estado === 'Camino a la empresa transportadora',
+                        'fa-circle-check text-green-500 dark:text-green-400': producto.estado === 'Entregado a empresa transportadora'
+                    }"></i>
+                </span>
+                <h4 class="font-medium leading-tight">{{ producto.productoId.titulo }}</h4>
+                <p class="text-sm"><strong>Estado:</strong> {{ producto.estado }}</p>
+                <p class="text-sm"><strong>Fecha de última actualización:</strong> {{ producto.fechaActualizacion |
+                    date: 'longDate':'':'es' }}</p>
+                <p class="text-sm"><strong>Vendedor:</strong> {{ producto.vendedorId.nombres }} {{
+                    producto.vendedorId.apellidos }}</p>
+            </li>
+        </ol>
+
+        <!-- Display "Productos completados" when all products are delivered -->
+        <p *ngIf="allProductsDelivered()" class="text-green-600 text-lg font-semibold">
+            Productos completados: Todos los productos han sido Entregados a la empresa transportadora.
+        </p>
+    </section>
+
+    <!-- Fecha estimada de entrega -->
+    <section class="w-full max-w-2xl bg-white p-6 shadow-md rounded-lg">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Fecha Estimada de Entrega</h3>
+        <p><strong>{{ pedido.fechaEntregaEstimada | date:'longDate':'':'es' }}</strong></p>
+    </section>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.imgFondo {
+    background-image: url('/assets/img/fondo.png');
+    height: 950px;
+    background-size: 100% 950px;
+    background-repeat: no-repeat;
+}
+
+.bebas-neue-regular {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.titleProductos {
+    font-size: 50px;
+}
+
+.subtitleProductos {
+    font-size: 20px;
+    font-weight: 200;
+    padding-bottom: 20px;
+}
+
+.img-responsive {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.notificacion {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
+@media screen and (min-width: 300px) and (max-width: 500px) {
+    .imgFondo {
+        margin-top: 80px;
+        height: 250px;
+        background-size: 100% 250px;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 700px) {
+    .imgFondo {
+        margin-top: 80px;
+        height: 300px;
+        background-size: 100% 300px;
+    }
+}
+
+@media screen and (min-width: 701px) and (max-width: 799px) {
+    .imgFondo {
+        margin-top: 80px;
+        height: 400px;
+        background-size: 100% 400px;
+    }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1000px) {
+    .imgFondo {
+        margin-top: 80px;
+        height: 500px;
+        background-size: 100% 500px;
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1440px) {
+    .imgFondo {
+        margin-top: 80px;
+        height: 700px;
+        background-size: 100% 700px;
+    }
+}
