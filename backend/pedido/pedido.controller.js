@@ -344,29 +344,32 @@ exports.actualizarEstadoProductoPorTransportador = async (req, res) => {
     }
 };
 
-// Obtener todos los pedidos con estado específico para la empresa transportadora
 exports.obtenerPedidosEnviados = async (req, res) => {
     try {
-        // Filtrar los pedidos que tengan estados específicos (excluyendo "Creado" y "Entregado")
-        const estadosPermitidos = [
-            'Productos camino a la empresa transportadora',
-            'Productos en la empresa transportadora',
-            'Comprobando productos',
-            'Camino a tu dirección',
-            'Creado'
-        ];
-
-        const pedidos = await Pedido.find({ estadoGeneral: { $in: estadosPermitidos } })
+        // Obtener todos los pedidos
+        const pedidos = await Pedido.find({})
             .populate('productos.productoId')
             .exec();
 
         if (!pedidos.length) {
-            return res.status(404).json({ message: 'No hay pedidos disponibles para la empresa transportadora' });
+            return res.status(404).json({ message: 'No hay pedidos disponibles' });
         }
 
-        res.json(pedidos);
+        // Ordenar pedidos: Primero todos menos "Entregado", luego los "Entregado"
+        const pedidosOrdenados = pedidos.sort((a, b) => {
+            if (a.estadoGeneral === 'Entregado' && b.estadoGeneral !== 'Entregado') {
+                return 1; // Mover "Entregado" al final
+            }
+            if (a.estadoGeneral !== 'Entregado' && b.estadoGeneral === 'Entregado') {
+                return -1; // Mantener no "Entregado" al inicio
+            }
+            return 0; // Mantener el orden relativo para otros estados
+        });
+
+        res.json(pedidosOrdenados);
     } catch (error) {
-        res.status(500).json({ message: 'Error al obtener los pedidos para la empresa transportadora', error });
+        console.error('Error al obtener los pedidos para la empresa transportadora:', error);
+        res.status(500).json({ message: 'Error al obtener los pedidos', error });
     }
 };
 
